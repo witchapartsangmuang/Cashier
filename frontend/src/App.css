@@ -1,0 +1,42 @@
+.Page {
+  margin-left: 200px;
+  margin-right: 200px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.Header {
+  background-color: aqua;
+  height: 70px;
+  margin-bottom: 10px;
+}
+.Category {
+  display: flex;
+  border: 1px solid;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.CategoryBox {
+  width: 25%;
+  background-color: antiquewhite;
+}
+.CategoryItem {
+  margin: 2px;
+  background-color: aquamarine;
+  height: 130px;
+  border: 1px solid;
+}
+.CategoryImage {
+  width: 100%;
+  height: 100%;
+}
+
+.CartTable {
+  width: 100%;
+}
+.DataRow {text-align: center;}
+.Index { width: 5%; }
+.ProdName { width: 25%; }
+.ProdPrice { width: 20%; }
+.Quantity { width: 20%; }
+.total { width: 20%; }
+.Delete { width: 10%; }
