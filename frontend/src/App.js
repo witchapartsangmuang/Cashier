@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
-import logo from './logo.svg'
+// import logo from './logo.svg'
 import './App.css'
 
 function App() {

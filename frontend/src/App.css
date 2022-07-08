@@ -30,13 +30,32 @@
   height: 100%;
 }
 
+
+
+/* START pages/Cart */
 .CartTable {
   width: 100%;
 }
 .DataRow {text-align: center;}
-.Index { width: 5%; }
+.Index { width: 10%; }
 .ProdName { width: 25%; }
-.ProdPrice { width: 20%; }
-.Quantity { width: 20%; }
-.total { width: 20%; }
+.ProdDesc { width: 25%; }
+.ProdPrice { width: 10%; }
+.Quantity { width: 10%; }
+.total { width: 10%; }
 .Delete { width: 10%; }
+/* END pages/Cart */
+
+/* START components/Productlist */
+.ProductItem {
+  display: flex;
+  text-align: center;
+  margin-bottom: 5px; 
+}
+.ProductItemIndex { width: 10%; }
+.ProductItemProdName { width: 25%; }
+.ProductItemProdDesc { width: 25%; }
+.ProductItemProdPrice { width: 15%; }
+.ProductItemProdBarcode { width: 15%; }
+.ProductItemAction { width: 10%; }
+/* END components/Productlist */

@@ -1,31 +1,42 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Header from "../components/Header"
 import axios from "axios"
-function Cart() {
-    const [prodid, setprodid] = useState()
+import { useDispatch, useSelector } from "react-redux"
 
-    const onChange = (event) => {
-        setprodid(event.target.value)
-    }
+function Cart() {
+
+    const dispatch = useDispatch()
+    const Cart = useSelector((state) => state.Cart?.Cart)
+    const Summary = useSelector((state) => state.Cart?.Summary)
 
     const onKeyDown = (event) => {
         if (event.key === "Enter") {
-            // axios.get("url")
+            axios.post(`http://localhost:8080/AddToCart`, {
+                ProdBarcode: event.target.value
+            })
+            event.target.value = ""
+            getCart()
         }
-        // else {
-        //     setprodid(event.target.value)
-        // }
     }
+
+    const getCart = () => {
+        dispatch.Cart.fetchCart()
+    }
+
+    useEffect(() => {
+        getCart()
+    },[])
+
     return (
         <div className="Page">
             <Header />
-            Cart
-            <input name="ProdId" type="text" onKeyDown={onKeyDown} onChange={onChange} />
+            <input type="text" onKeyDown={onKeyDown} />
             <table className="CartTable">
                 <thead>
                     <tr className="DataHead">
                         <th className="Index">ลำดับ</th>
                         <th className="ProdName">ชื่อสินค้า</th>
+                        <th className="ProdDesc">คำอธิบายสินค้า</th>
                         <th className="ProdPrice">ราคาต่อชิ้น</th>
                         <th className="Quantity">จำนวนชิ้น</th>
                         <th className="total">ราคารวม</th>
@@ -33,17 +44,21 @@ function Cart() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr className="DataRow">
-                        <td className="Index">1</td>
-                        <td className="ProdName">แก้วสีขาว</td>
-                        <td className="ProdPrice">15</td>
-                        <td className="Quantity">2</td>
-                        <td className="total">30</td>
-                        <td className="Delete">X</td>
-                    </tr>
-
+                    {Cart.map((Prod, index) => {
+                        return (
+                            <tr className="DataRow" key={index + 1}>
+                                <td className="Index">{index + 1}</td>
+                                <td className="ProdName">{Prod.ProdName}</td>
+                                <td className="ProdDesc">{Prod.ProdDesc}</td>
+                                <td className="ProdPrice">{Prod.ProdPrice}</td>
+                                <td className="Quantity">{Prod.Quantity}</td>
+                                <td className="total">{Prod.Total}</td>
+                            </tr>
+                        )
+                    })}
                 </tbody>
             </table>
+            {Summary}
         </div>
     )
 }
