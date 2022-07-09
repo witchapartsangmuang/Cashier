@@ -4,34 +4,42 @@ import axios from "axios"
 import { useDispatch, useSelector } from "react-redux"
 
 function Cart() {
-    
+
     const dispatch = useDispatch()
     const Cart = useSelector((state) => state.Cart?.Cart)
     const Summary = useSelector((state) => state.Cart?.Summary)
+    const [Change, setChange] = useState("*")
 
     const onKeyDown = (event) => {
         if (event.key === "Enter") {
-            axios.post(`http://localhost:8080/AddToCart`, {
-                ProdBarcode: event.target.value
-            })
+            axios.post(`http://localhost:8080/AddToCart`, { ProdBarcode: event.target.value })
             event.target.value = ""
-            dispatch.Cart.fetchCart()
+            window.location.reload()
+            // dispatch.Cart.fetchCart()
         }
     }
 
     const DeleteFromCart = (ProdBarcode) => {
         axios.delete(`http://localhost:8080/DeleteFromCart/${ProdBarcode}`)
-        dispatch.Cart.fetchCart()
+        window.location.reload()
+        // dispatch.Cart.fetchCart()
+    }
+
+    const Calculate = (event) => {
+        if (event.key === "Enter") {
+            setChange(event.target.value - Summary)
+        }
     }
 
     useEffect(() => {
         dispatch.Cart.fetchCart()
+        document.getElementById('InputBarcode').focus()
     }, [])
 
     return (
         <div className="Page">
             <Header />
-            <input type="text" onKeyDown={onKeyDown} />
+            <input id="InputBarcode" type="text" onKeyDown={onKeyDown} />
             <table className="CartTable">
                 <thead>
                     <tr className="DataHead">
@@ -60,7 +68,24 @@ function Cart() {
                     })}
                 </tbody>
             </table>
-            {Summary}
+            <div className="DivCalculateTable">
+                <table className="CalculateTable">
+                    <tbody>
+                        <tr>
+                            <td className="LeftCalculateTable">รับมา : </td>
+                            <td className="RightCalculateTable"><input type="number" onKeyDown={Calculate} /> บาท</td>
+                        </tr>
+                        <tr>
+                            <td className="LeftCalculateTable">ราคารวมทั้งหมด : </td>
+                            <td className="RightCalculateTable">{Summary} บาท</td>
+                        </tr>
+                        <tr>
+                            <td className="LeftCalculateTable">ทอน : </td>
+                            <td className="RightCalculateTable">{Change} บาท</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     )
 }

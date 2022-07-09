@@ -85,4 +85,15 @@ app.delete(`/DeleteFromCart/:ProdBarcode`, (req, res) => {
     })
 })
 
+app.get(`/GetCategory/`,(req,res) =>{
+    client.query(`SELECT * FROM "Category"`, (err, result) => {
+        if (err) {
+            console.log(err)
+        } else {
+            res.send(result.rows)
+            console.log("GetCategory")
+        }
+    })
+})
+
 app.listen(8080)

@@ -1,41 +1,62 @@
-.Page {
-  margin-left: 200px;
-  margin-right: 200px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
+/* START components/Header */
 .Header {
-  background-color: aqua;
-  height: 70px;
-  margin-bottom: 10px;
+	display: flex;
+	background-color: aqua;
+	height: 50px;
+	margin-bottom: 10px;
+	padding: 10px;
 }
+.NameBox {
+	width: 20%;
+}
+.NameBox p {
+	font-size: 25px;
+	padding-left: 10px;
+	margin-top: 7px;
+	margin-bottom: 0;
+}
+.CartBox {
+	width: 20%;
+	text-align: center;
+}
+.bi {
+	font-size: 36px;
+}
+/* END components/Header */
+
+.Page {
+	margin-left: 200px;
+	margin-right: 200px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
 .Category {
-  display: flex;
-  border: 1px solid;
-  flex-wrap: wrap;
-  margin-bottom: 10px;
+	display: flex;
+	border: 1px solid;
+	flex-wrap: wrap;
+	margin-bottom: 10px;
 }
 .CategoryBox {
-  width: 25%;
-  background-color: antiquewhite;
+	width: 25%;
+	background-color: antiquewhite;
 }
 .CategoryItem {
-  margin: 2px;
-  background-color: aquamarine;
-  height: 130px;
-  border: 1px solid;
+	margin: 2px;
+	background-color: aquamarine;
+	height: 130px;
+	border: 1px solid;
 }
 .CategoryImage {
-  width: 100%;
-  height: 100%;
+	width: 100%;
+	height: 100%;
 }
 
-
+/* START pages/Home */
+/* END pages/Home */
 
 /* START pages/Cart */
-.CartTable {
-  width: 100%;
-}
+.CartTable { width: 100%; }
 .DataRow {text-align: center;}
 .Index { width: 10%; }
 .ProdName { width: 25%; }
@@ -44,18 +65,44 @@
 .Quantity { width: 10%; }
 .total { width: 10%; }
 .Delete { width: 10%; }
+
+.DivCalculateTable {
+	display: flex;
+	margin-top: 30px;
+	padding-right: 10px;
+	justify-content: right;
+}
+.CalculateTable {
+	border: 1px solid;
+	height: 120px;
+}
+.LeftCalculateTable {
+	text-align: right;
+}
+.RightCalculateTable {
+	text-align: left;
+}
 /* END pages/Cart */
 
 /* START components/Productlist */
-.ProductItem {
-  display: flex;
-  text-align: center;
-  margin-bottom: 5px; 
+.ProductTableHeader {
+	display: flex;
+	text-align: center;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+	border-bottom: 2px solid;
 }
-.ProductItemIndex { width: 10%; }
-.ProductItemProdName { width: 25%; }
-.ProductItemProdDesc { width: 25%; }
-.ProductItemProdPrice { width: 15%; }
-.ProductItemProdBarcode { width: 15%; }
-.ProductItemAction { width: 10%; }
+.ProductItem {
+	display: flex;
+	text-align: center;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+	border-bottom: 1px solid;
+}
+.ColumnIndex { width: 10%; }
+.ColumnProdName { width: 25%; }
+.ColumnProdDesc { width: 25%; }
+.ColumnProdPrice { width: 15%; }
+.ColumnProdBarcode { width: 15%; }
+.ColumnAction { width: 10%; }
 /* END components/Productlist */
