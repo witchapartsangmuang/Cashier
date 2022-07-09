@@ -20,6 +20,7 @@ app.get(`/GetProduct/`, (req, res) => {
                 console.log(err)
             } else {
                 res.send(result.rows)
+                console.log("GetProduct")
             }
         })
     } else {
@@ -28,13 +29,14 @@ app.get(`/GetProduct/`, (req, res) => {
                 console.log(err)
             } else {
                 res.send(result.rows)
+                console.log("GetProduct")
             }
         })
     }
 })
 
-app.get(`/GetCart/`,(req,res) => {
-    client.query(`SELECT * FROM "Product" INNER JOIN "Cart" ON "Product"."ProdBarcode" = "Cart"."ProdBarcode"`, (err, result) => {
+app.get(`/GetCart/`, (req, res) => {
+    client.query(`SELECT * FROM "Product" INNER JOIN "Cart" ON "Product"."ProdBarcode" = "Cart"."ProdBarcode" ORDER BY "Cart"."CartId"`, (err, result) => {
         if (err) {
             console.log(err)
         } else {
@@ -44,23 +46,43 @@ app.get(`/GetCart/`,(req,res) => {
     })
 })
 
-app.post(`/AddToCart/`,(req,res) => {
-    client.query(`INSERT INTO "Cart" ("Quantity", "Total", "ProdBarcode") VALUES (1, 1, '${req.body.ProdBarcode}')`, (err, result) => {
+app.post(`/AddToCart/`, (req, res) => {
+    client.query(`SELECT * FROM "Product" INNER JOIN "Cart" ON "Product"."ProdBarcode" = "Cart"."ProdBarcode" WHERE "Cart"."ProdBarcode" = '${req.body.ProdBarcode}'`, (err, result) => {
         if (err) {
-            console.log(err,"err")
+            console.log(err)
         } else {
-            console.log("AddToCart Successfully")
+            if (result.rows.length == 0) {
+                client.query(`INSERT INTO "Cart" ("Quantity", "ProdBarcode") VALUES (1, '${req.body.ProdBarcode}')`, (err, result) => {
+                    if (err) {
+                        console.log(err)
+                    } else {
+                        console.log("AddToCart Successfully")
+                    }
+                })
+            }
+            else {
+                console.log('result have already in cart')
+                client.query(`UPDATE "Cart" SET "Quantity" = "Quantity" + 1  WHERE "ProdBarcode" = '${req.body.ProdBarcode}' `, (err, result) => {
+                    if (err) {
+                        console.log(err)
+                    } else {
+                        console.log("Update AddToCart Successfully")
+                    }
+                })
+            }
+            client.query(`UPDATE "Cart" SET "Total" = "Cart"."Quantity" * "Product"."ProdPrice" FROM "Product" WHERE "Cart"."ProdBarcode" = "Product"."ProdBarcode"`)
         }
     })
 })
 
-// app.put(`/AddToCart/`,(req,res) => {
-//     client.query(`INSERT INTO "Cart" ("Quantity", "total", "ProdId") VALUES (1, 1, ${req.body.ProdId})`, (err, result) => {
-//         if (err) {
-//             console.log(err)
-//         } else {
-//             console.log('suc')s
-//         }
-//     })
-// })
+app.delete(`/DeleteFromCart/:ProdBarcode`, (req, res) => {
+    client.query(`DELETE FROM "Cart" WHERE "ProdBarcode" = '${req.params.ProdBarcode}'`, (err, result) => {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log('DeleteFromCart Successfully')
+        }
+    })
+})
+
 app.listen(8080)

@@ -4,7 +4,7 @@ import axios from "axios"
 import { useDispatch, useSelector } from "react-redux"
 
 function Cart() {
-
+    
     const dispatch = useDispatch()
     const Cart = useSelector((state) => state.Cart?.Cart)
     const Summary = useSelector((state) => state.Cart?.Summary)
@@ -15,17 +15,18 @@ function Cart() {
                 ProdBarcode: event.target.value
             })
             event.target.value = ""
-            getCart()
+            dispatch.Cart.fetchCart()
         }
     }
 
-    const getCart = () => {
+    const DeleteFromCart = (ProdBarcode) => {
+        axios.delete(`http://localhost:8080/DeleteFromCart/${ProdBarcode}`)
         dispatch.Cart.fetchCart()
     }
 
     useEffect(() => {
-        getCart()
-    },[])
+        dispatch.Cart.fetchCart()
+    }, [])
 
     return (
         <div className="Page">
@@ -53,6 +54,7 @@ function Cart() {
                                 <td className="ProdPrice">{Prod.ProdPrice}</td>
                                 <td className="Quantity">{Prod.Quantity}</td>
                                 <td className="total">{Prod.Total}</td>
+                                <td className="total"><button onClick={() => DeleteFromCart(Prod.ProdBarcode)}>ลบ</button></td>
                             </tr>
                         )
                     })}
