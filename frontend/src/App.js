@@ -3,9 +3,10 @@ import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 import ProductManage from "./pages/ProductManage";
 import CreateProduct from "./pages/CreateProduct";
+import EditProductDetail from "./pages/EditProductDetail";
 import CategoryManage from "./pages/CategoryManage";
 import CreateCategory from "./pages/CreateCategory";
-import EditProductDetail from "./pages/EditProductDetail";
+import EditCategoryDetail from "./pages/EditCategoryDetail";
 // import logo from './logo.svg'
 import './App.css'
 
@@ -19,6 +20,7 @@ function App() {
           <Route path="productManage/EditProductDetail/:ProdId" element={<EditProductDetail />} />
           <Route path="productManage/createProduct" element={<CreateProduct />} />
           <Route path="categoryManage" element={<CategoryManage />} />
+          <Route path="categoryManage/EditCategoryDetail/:CateId" element={<EditCategoryDetail />} />
           <Route path="categoryManage/newCategory" element={<CreateCategory />} />
       </Routes>
     </BrowserRouter>

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { Link, useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import {
     useDispatch,
@@ -24,14 +25,21 @@ function CategoryTable() {
             </div>
             {
                 Category.map((cate, index) => {
+                    const pathname = 'EditCategoryDetail/' + cate.CateId
                     return (
-                        <div className='CategoryTableItem' key={index+1}>
+                        <div className='CategoryTableItem' key={index + 1}>
                             <div className="CategoryTableColumnIndex">{index + 1}</div>
                             <div className="CategoryTableColumnImg"><img src={cate.CateImg} /></div>
                             <div className="CategoryTableColumnName">{cate.CateName}</div>
                             <div className="CategoryTableColumnAction">
-                                <button className="ActionButton">ใช้งาน</button>
-                                <button className="ActionButton">แก้ไข</button>
+                                {cate.IsActive ? (
+                                    <button className="ActionButton Active">ใช้งาน</button>
+                                ) : (
+                                    <button className="ActionButton InActive">ไม่ใช้งาน</button>
+                                )}
+                                <Link to={pathname}>
+                                    <button className="ActionButton">แก้ไข</button>
+                                </Link>
                                 <button className="ActionButton">ลบ</button>
                             </div>
                         </div>

@@ -52,7 +52,9 @@ export const Product = {
                 params: {
                     cateId: payload.cateId,
                     IsActive: payload.IsActive,
-                    urlpath: payload.urlpath
+                    urlpath: payload.urlpath,
+                    activefilter: payload.activefilter,
+                    categoryfilter: payload.categoryfilter
                 }
             }).then((response) => {
                 dispatch.Product.SET_PRODUCT(response.data)
@@ -64,7 +66,6 @@ export const Product = {
                     ProdId: payload.ProdId
                 }
             }).then((response) => {
-                console.log(response.data[0])
                 dispatch.Product.SET_PRODUCT_DETAIL(response.data)
                 dispatch.Product.SET_PROD_ID(response.data[0].ProdId)
                 dispatch.Product.SET_PROD_NAME(response.data[0].ProdName)
