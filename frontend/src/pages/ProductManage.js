@@ -14,7 +14,7 @@ function ProductManage() {
     const Category = useSelector((state) => state.Category?.Category)
 
     const [activefilter, setactivefilter] = useState("-")
-    const [categoryfilter, setcategoryfilter] = useState("-")
+    const [categoryfilter, setcategoryfilter] = useState(0)
 
     const newProduct = () => {
         window.location.href = "productManage/createProduct"
@@ -23,11 +23,9 @@ function ProductManage() {
 
     const filter = () => {
         dispatch.Product.fetchproduct({
-            cateId: 0,
-            IsActive: "true",
+            cateId: categoryfilter,
             urlpath: urlpath.pathname,
             activefilter: activefilter,
-            categoryfilter: categoryfilter
         })
     }
 
@@ -55,7 +53,7 @@ function ProductManage() {
                 <div style={{ width: "10%" }}>
                     หมวดหมู่ :
                     <select onChange={(event) => { setcategoryfilter(event.target.value) }}>
-                        <option value="-">ทั้งหมด</option>
+                        <option value="0">ทั้งหมด</option>
                         {
                             Category.map((cate, index) => {
                                 return (

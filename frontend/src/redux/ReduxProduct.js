@@ -2,7 +2,6 @@ import axios from 'axios'
 
 const DEFAULT_STATE = {
     Product: [],
-    ProductDetail: [],
     // START ProductDetail
     ProdId: [],
     ProdName: [],
@@ -51,10 +50,8 @@ export const Product = {
             axios.get(`http://localhost:8080/GetProduct`, {
                 params: {
                     cateId: payload.cateId,
-                    IsActive: payload.IsActive,
                     urlpath: payload.urlpath,
-                    activefilter: payload.activefilter,
-                    categoryfilter: payload.categoryfilter
+                    activefilter: payload.activefilter
                 }
             }).then((response) => {
                 dispatch.Product.SET_PRODUCT(response.data)
@@ -66,14 +63,13 @@ export const Product = {
                     ProdId: payload.ProdId
                 }
             }).then((response) => {
-                dispatch.Product.SET_PRODUCT_DETAIL(response.data)
                 dispatch.Product.SET_PROD_ID(response.data[0].ProdId)
                 dispatch.Product.SET_PROD_NAME(response.data[0].ProdName)
                 dispatch.Product.SET_PROD_DESC(response.data[0].ProdDesc)
                 dispatch.Product.SET_PROD_PRICE(response.data[0].ProdPrice)
                 dispatch.Product.SET_PROD_BARCODE(response.data[0].ProdBarcode)
                 dispatch.Product.SET_PROD_CATEID(response.data[0].CateId)
-                dispatch.Product.SET_PROD_ACTIVE(response.data[0].IsActive)
+                dispatch.Product.SET_PROD_ACTIVE(response.data[0].ProdIsActive)
             }).catch((err) => { console.log(err) })
         },
 

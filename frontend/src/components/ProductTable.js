@@ -16,9 +16,9 @@ function ProductTable() {
     useEffect(() => {
         dispatch.Product.fetchproduct({
             cateId: 0,
-            IsActive: true,
-            urlpath: urlpath.pathname
-            })
+            urlpath: urlpath.pathname,
+            activefilter: "-",
+        })
     }, [])
 
     return (
@@ -45,7 +45,7 @@ function ProductTable() {
                             <div className="ProductTableColumnProdPrice" style={{ paddingTop: "5px" }}>{Prod.ProdPrice}</div>
                             <div className="ProductTableColumnProdBarcode" style={{ paddingTop: "5px" }}>{Prod.ProdBarcode}</div>
                             <div className="ProductTableColumnAction">
-                                {Prod.IsActive ? (
+                                {Prod.ProdIsActive ? (
                                     <button className="ActionButton Active">ใช้งาน</button>
                                 ) : (
                                     <button className="ActionButton InActive">ไม่ใช้งาน</button>

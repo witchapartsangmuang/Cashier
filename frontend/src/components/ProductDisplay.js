@@ -34,8 +34,8 @@ function ProductDisplay() {
     useEffect(() => {
         dispatch.Product.fetchproduct({
             cateId: 0,
-            IsActive: true,
-            urlpath: urlpath.pathname
+            urlpath: urlpath.pathname,
+            activefilter: "-",
         })
     }, [])
 

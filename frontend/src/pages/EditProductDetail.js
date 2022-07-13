@@ -14,7 +14,6 @@ function EditProductDetail() {
     const dispatch = useDispatch()
 
     const Category = useSelector((state) => state.Category?.Category)
-    // const ProductDetail = useSelector((state) => state.Product?.ProductDetail)
 
     const editProdId = useSelector((state) => state.Product?.ProdId)
     const editProdName = useSelector((state) => state.Product?.ProdName)
@@ -37,6 +36,7 @@ function EditProductDetail() {
             }
         )
         .then(() => {window.location.href = "/productManage"})
+        .catch((err)=> console.log(err))
     }
 
     useEffect(() => {

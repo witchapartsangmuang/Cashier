@@ -32,7 +32,7 @@ function CategoryTable() {
                             <div className="CategoryTableColumnImg"><img src={cate.CateImg} /></div>
                             <div className="CategoryTableColumnName">{cate.CateName}</div>
                             <div className="CategoryTableColumnAction">
-                                {cate.IsActive ? (
+                                {cate.CateIsActive ? (
                                     <button className="ActionButton Active">ใช้งาน</button>
                                 ) : (
                                     <button className="ActionButton InActive">ไม่ใช้งาน</button>

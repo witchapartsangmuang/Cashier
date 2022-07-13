@@ -45,10 +45,11 @@ export const Category = {
                     CateId: payload.CateId
                 }
             }).then((response) => {
+                console.log(response.data);
                 dispatch.Category.SET_CATE_ID(response.data[0].CateId)
                 dispatch.Category.SET_CATE_NAME(response.data[0].CateName)
                 dispatch.Category.SET_CATE_IMG(response.data[0].CateImg)
-                dispatch.Category.SET_CATE_ACTIVE(response.data[0].IsActive)
+                dispatch.Category.SET_CATE_ACTIVE(response.data[0].CateIsActive)
             }).catch((err) => { console.log(err) })
         },
 
