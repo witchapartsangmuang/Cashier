@@ -1,12 +1,13 @@
 import Header from "../components/Header"
-import Category from "../components/Category"
-import Productlist from "../components/Productlist"
+import CategoryDisplay from "../components/CategoryDisplay"
+import ProductDisplay from "../components/ProductDisplay"
+
 function Home () {
     return (
         <div className="Page">
             <Header/>
-            <Category/>
-            <Productlist/>
+            <CategoryDisplay/>
+            <ProductDisplay/>
         </div>
     )}
 export default Home

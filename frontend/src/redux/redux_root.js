@@ -1,2 +1,3 @@
-export * from "./ProductRedux"
-export * from "./CartRedux"
+export * from "./ReduxProduct"
+export * from "./ReduxCart"
+export * from "./ReduxCategory"

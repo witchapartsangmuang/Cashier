@@ -12,19 +12,32 @@ const client = new Client({
     port: 5432,
 })
 client.connect()
-
 app.get(`/GetProduct/`, (req, res) => {
-    if (req.query.cateId == 0) {
-        client.query(`SELECT * from "Product"`, (err, result) => {
-            if (err) {
-                console.log(err)
-            } else {
-                res.send(result.rows)
-                console.log("GetProduct")
-            }
-        })
-    } else {
-        client.query(`SELECT * from "Product" WHERE "CateId" = ${req.query.cateId}`, (err, result) => {
+    // console.log(req.query.cateId)
+    // console.log(req.query.IsActive)
+    // console.log(req.query.urlpath)
+    if (req.query.urlpath == "/") {
+        if (req.query.cateId == 0) {
+            client.query(`SELECT * from "Product" INNER JOIN "Category" ON "Product"."CateId" = "Category"."CateId" WHERE "Product"."IsActive" = true ORDER BY "Product"."ProdId"`, (err, result) => {
+                if (err) {
+                    console.log(err)
+                } else {
+                    res.send(result.rows)
+                    console.log("GetProduct")
+                }
+            })
+        } else {
+            client.query(`SELECT * from "Product" INNER JOIN "Category" ON "Product"."CateId" = "Category"."CateId" WHERE "Product"."CateId" = ${req.query.cateId} AND "Product"."IsActive" = true ORDER BY "Product"."ProdId"`, (err, result) => {
+                if (err) {
+                    console.log(err)
+                } else {
+                    res.send(result.rows)
+                    console.log("GetProduct")
+                }
+            })
+        }
+    } else if (req.query.urlpath == "/productManage") {
+        client.query(`SELECT * from "Product" INNER JOIN "Category" ON "Product"."CateId" = "Category"."CateId" ORDER BY "Product"."ProdId"`, (err, result) => {
             if (err) {
                 console.log(err)
             } else {
@@ -94,6 +107,52 @@ app.get(`/GetCategory/`,(req,res) =>{
             console.log("GetCategory")
         }
     })
+})
+
+app.get(`/GetProductDetail/`,(req,res) =>{
+    client.query(`SELECT * FROM "Product" INNER JOIN "Category" ON "Product"."CateId" = "Category"."CateId" WHERE "Product"."ProdId" = '${req.query.ProdId}'`, (err, result) => {
+        if (err) {
+            console.log(err)
+        } else {
+            res.send(result.rows)
+            console.log("GetProductDetail")
+        }
+    })
+})
+
+app.put(`/UpdateProductDetail/`,(req,res) =>{
+    client.query(`UPDATE "Product" SET
+    "ProdName" = '${req.body.editProdName}',
+    "ProdDesc" = '${req.body.editProdDesc}',
+    "ProdPrice" = ${req.body.editProdPrice},
+    "ProdBarcode" = '${req.body.editProdBarcode}',
+    "CateId" = ${req.body.editCateId},
+    "IsActive" = ${req.body.editIsActive}
+    WHERE "ProdId" = ${req.body.editProdId}`, (err, result) => {
+        if (err) {
+            console.log(err)
+        } else {
+            res.send(result.rows)
+            console.log("UpdateProductDetail")
+        }
+    })
+})
+
+app.post(`/CreateProduct/`, (req, res) => {
+    client.query(`INSERT INTO "Product"
+    ("ProdName","ProdDesc","ProdPrice","ProdBarcode","CateId")
+    VALUES ('${req.body.ProdName}', '${req.body.ProdDesc}', ${req.body.ProdPrice}, '${req.body.ProdBarcode}', ${req.body.ProdCateId})`,(err, result) => {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log("CreateProduct")
+        }
+    })
+})
+
+// unsuccess
+app.post(`/CreateCategory/`, (req, res) => {
+    console.log(req)
 })
 
 app.listen(8080)

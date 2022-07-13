@@ -1,6 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
+import ProductManage from "./pages/ProductManage";
+import CreateProduct from "./pages/CreateProduct";
+import CategoryManage from "./pages/CategoryManage";
+import CreateCategory from "./pages/CreateCategory";
+import EditProductDetail from "./pages/EditProductDetail";
 // import logo from './logo.svg'
 import './App.css'
 
@@ -10,6 +15,11 @@ function App() {
       <Routes>
           <Route path="/" element={<Home />} />
           <Route path="cart" element={<Cart />} />
+          <Route path="productManage" element={<ProductManage />} />
+          <Route path="productManage/EditProductDetail/:ProdId" element={<EditProductDetail />} />
+          <Route path="productManage/createProduct" element={<CreateProduct />} />
+          <Route path="categoryManage" element={<CategoryManage />} />
+          <Route path="categoryManage/newCategory" element={<CreateCategory />} />
       </Routes>
     </BrowserRouter>
   )

@@ -1,27 +1,31 @@
-import axios from 'axios'
-import { useEffect, useState } from 'react'
 import {
-    useDispatch
-    // useSelector
+    useEffect,
+    // useState 
+} from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import {
+    useDispatch,
+    useSelector
 } from "react-redux"
-function Category() {
-    const dispatch = useDispatch()
 
-    const [Category, setCategory] = useState([])
+function CategoryDisplay() {
+    const urlpath = useLocation()
+
+    const dispatch = useDispatch()
+    const Category = useSelector((state) => state.Category?.Category)
 
     const getproduct = (cateId) => {
-        dispatch.Product.fetchproduct({ cateId: cateId })
+        dispatch.Product.fetchproduct({ 
+            cateId: cateId,
+            IsActive: true,
+            urlpath: urlpath.pathname
+        })
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/GetCategory`)
-            .then((response) => {
-                setCategory(response.data)
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+        dispatch.Category.fetchCategory()
     }, [])
+    
     return (
         <div className="Category">
             <div className="CategoryBox">
@@ -30,7 +34,6 @@ function Category() {
             {
                 Category.map((cate, index) => {
                     let CateId = cate.CateId
-                    console.log(CateId)
                     return (
                         <div className="CategoryBox" key={index}>
                             <div className="CategoryItem" onClick={() => getproduct(CateId)}><img className="CategoryImage" alt="CategoryImg" src="image/หมวดเครื่องดื่ม.png" /></div>
@@ -41,4 +44,4 @@ function Category() {
         </div>
     )
 }
-export default Category
+export default CategoryDisplay

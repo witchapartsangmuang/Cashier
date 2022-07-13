@@ -23,6 +23,7 @@ export const Cart = {
         async fetchCart(payload) {
             axios.get(`http://localhost:8080/GetCart`)
                 .then((response) => {
+                    console.log(response.data);
                     dispatch.Cart.SET_CART(response.data)
                     dispatch.Cart.SET_SUMMARY(response.data)
                 })

@@ -39,7 +39,7 @@ function Cart() {
     return (
         <div className="Page">
             <Header />
-            <input id="InputBarcode" type="text" onKeyDown={onKeyDown} />
+            <input id="InputBarcode" type="text" onKeyDown={(event) => onKeyDown(event)} />
             <table className="CartTable">
                 <thead>
                     <tr className="DataHead">

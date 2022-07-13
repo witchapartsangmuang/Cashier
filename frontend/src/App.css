@@ -1,28 +1,6 @@
-/* START components/Header */
-.Header {
-	display: flex;
-	background-color: aqua;
-	height: 50px;
-	margin-bottom: 10px;
-	padding: 10px;
+body {
+	background-color: #e8e8e8;
 }
-.NameBox {
-	width: 20%;
-}
-.NameBox p {
-	font-size: 25px;
-	padding-left: 10px;
-	margin-top: 7px;
-	margin-bottom: 0;
-}
-.CartBox {
-	width: 20%;
-	text-align: center;
-}
-.bi {
-	font-size: 36px;
-}
-/* END components/Header */
 
 .Page {
 	margin-left: 200px;
@@ -31,40 +9,143 @@
 	margin-bottom: 10px;
 }
 
+.content {
+	display: flex;
+	justify-content: center;
+}
+
+/* START components/Header */
+.Header {
+	display: flex;
+	height: 50px;
+	margin-bottom: 10px;
+	padding: 10px;
+	background-image: url("../public/image/header-bg.jpg");
+	background-repeat: no-repeat;
+	background-size: 100% 70px;
+}
+
+.BannerDiv {
+	width: 200px;
+	justify-content: center;
+	display: flex;
+}
+
+.SearchDiv {
+	width: 250px;
+	justify-content: center;
+	align-items: center;
+	display: flex;
+}
+
+.CartDiv {
+	width: 100px;
+	text-align: center;
+}
+
+.ManagementDiv {
+	width: 600px;
+	text-align: center;
+	display: flex;
+	justify-content: space-around;
+}
+
+.BannerDiv p {
+	text-align: center;
+	font-size: 25px;
+	margin-top: 10px;
+	margin-bottom: 0;
+}
+
+.BannerDiv a {
+	text-decoration: none !important;
+	display: block;
+	width: 135px;
+}
+
+.InputSearch {
+	width: 200px;
+	height: 35px;
+	font-size: 20px;
+}
+
+.bi {
+	font-size: 36px;
+}
+
+.ManagementDiv a {
+	width: 140px;
+	height: 50px;
+}
+
+/* END components/Header */
+
+/* START components/Category */
 .Category {
 	display: flex;
 	border: 1px solid;
 	flex-wrap: wrap;
 	margin-bottom: 10px;
 }
+
 .CategoryBox {
 	width: 25%;
 	background-color: antiquewhite;
 }
+
 .CategoryItem {
 	margin: 2px;
 	background-color: aquamarine;
 	height: 130px;
 	border: 1px solid;
 }
+
 .CategoryImage {
 	width: 100%;
 	height: 100%;
 }
 
+/* END components/Category */
+
 /* START pages/Home */
 /* END pages/Home */
 
 /* START pages/Cart */
-.CartTable { width: 100%; }
-.DataRow {text-align: center;}
-.Index { width: 10%; }
-.ProdName { width: 25%; }
-.ProdDesc { width: 25%; }
-.ProdPrice { width: 10%; }
-.Quantity { width: 10%; }
-.total { width: 10%; }
-.Delete { width: 10%; }
+.CartTable {
+	width: 100%;
+}
+
+.DataRow {
+	text-align: center;
+}
+
+.Index {
+	width: 10%;
+}
+
+.ProdName {
+	width: 25%;
+}
+
+.ProdDesc {
+	width: 25%;
+}
+
+.ProdPrice {
+	width: 10%;
+}
+
+.Quantity {
+	width: 10%;
+}
+
+.total {
+	width: 10%;
+}
+
+.Delete {
+	width: 10%;
+}
 
 .DivCalculateTable {
 	display: flex;
@@ -72,16 +153,20 @@
 	padding-right: 10px;
 	justify-content: right;
 }
+
 .CalculateTable {
 	border: 1px solid;
 	height: 120px;
 }
+
 .LeftCalculateTable {
 	text-align: right;
 }
+
 .RightCalculateTable {
 	text-align: left;
 }
+
 /* END pages/Cart */
 
 /* START components/Productlist */
@@ -92,17 +177,186 @@
 	margin-bottom: 10px;
 	border-bottom: 2px solid;
 }
-.ProductItem {
+
+.ProductTableItem {
 	display: flex;
 	text-align: center;
 	padding-bottom: 10px;
 	margin-bottom: 10px;
 	border-bottom: 1px solid;
 }
-.ColumnIndex { width: 10%; }
-.ColumnProdName { width: 25%; }
-.ColumnProdDesc { width: 25%; }
-.ColumnProdPrice { width: 15%; }
-.ColumnProdBarcode { width: 15%; }
-.ColumnAction { width: 10%; }
+
+.ProductTableColumnIndex {
+	width: 10%;
+	align-items: center;
+}
+
+.ProductTableColumnCategory {
+	width: 10%;
+	align-items: center;
+}
+
+.ProductTableColumnProdName {
+	width: 25%;
+	align-items: center;
+}
+
+.ProductTableColumnProdDesc {
+	width: 25%;
+	align-items: center;
+}
+
+.ProductTableColumnProdPrice {
+	width: 10%;
+	align-items: center;
+}
+
+.ProductTableColumnProdBarcode {
+	width: 10%;
+	align-items: center;
+}
+
+.ProductTableColumnAction {
+	width: 20%;
+	display: flex;
+	justify-content: space-around;
+}
+
+.ActionButton {
+	height: 35px;
+}
+
 /* END components/Productlist */
+
+
+/* START pages/CreateProduct, pages/EditProductDetail */
+.ProductDetailDiv {
+	width: 450px;
+	border: 1px solid;
+	border-radius: 5px;
+	display: flex;
+	flex-direction: column;
+	background-color: white;
+}
+
+.ProductInfo {
+	display: flex;
+	width: 100%;
+	height: 50px;
+}
+
+.ProductTitle {
+	width: 50%;
+	text-align: center;
+	padding-top: 15px;
+}
+
+.ProductTitle p {
+	margin: 0;
+}
+
+.ProductData {
+	width: 50%;
+	padding-top: 7.5px;
+}
+
+.ProductData input {
+	width: 200px;
+	height: 30px;
+	font-size: 16px;
+}
+
+.ProductData select {
+	width: 208px;
+	height: 36px;
+	font-size: 16px;
+}
+
+.buttonDiv {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	display: flex;
+	justify-content: center;
+}
+
+.submitButton {
+	height: 30px;
+	width: 150px;
+}
+
+/* END pages/CreateProduct, pages/EditProductDetail  */
+
+/* START pages/CategoryManage */
+.CategoryTableHeader {
+	display: flex;
+	text-align: center;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+	border-bottom: 2px solid;
+}
+
+.CategoryTableItem {
+	display: flex;
+	text-align: center;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+	border-bottom: 1px solid;
+}
+
+.CategoryTableColumnIndex {
+	width: 10%;
+}
+
+.CategoryTableColumnImg {
+	width: 30%;
+}
+
+.CategoryTableColumnName {
+	width: 20%;
+}
+
+.CategoryTableColumnAction {
+	width: 40%;
+	display: flex;
+	justify-content: space-around;
+}
+
+.CategoryTableColumnImg img {
+	width: 150px;
+	height: 150px;
+}
+
+/* END pages/CategoryManage */
+
+
+
+.Active {
+	background-color: green;
+}
+.InActive {
+	background-color: red;
+}
+
+
+.Toast {
+	/* position: fixed; */
+	animation: slide-keyframe .8s;
+	margin-bottom: 10px;
+}
+
+/* .ToastTitle {
+
+}
+.ToastContext {
+
+} */
+
+@keyframes slide-keyframe {
+	from {
+		transform: translateX(10%);
+	}
+
+	to {
+		transform: translateX(0);
+	}
+}
