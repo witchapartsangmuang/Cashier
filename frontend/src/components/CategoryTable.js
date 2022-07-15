@@ -8,11 +8,15 @@ import {
 
 function CategoryTable() {
 
+    const urlpath = useLocation()
+
     const dispatch = useDispatch()
     const Category = useSelector((state) => state.Category?.Category)
 
     useEffect(() => {
-        dispatch.Category.fetchCategory()
+        dispatch.Category.fetchCategory({
+            urlpath:urlpath.pathname
+        })
     }, [])
 
     return (

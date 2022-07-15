@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useLocation, useParams } from "react-router-dom"
 import {
     useDispatch,
     useSelector
@@ -11,6 +11,7 @@ function EditProductDetail() {
 
     const params = useParams()
     const ProdId = params.ProdId
+    const urlpath = useLocation()
     const dispatch = useDispatch()
 
     const Category = useSelector((state) => state.Category?.Category)
@@ -34,14 +35,14 @@ function EditProductDetail() {
                 editCateId: editProdCateId,
                 editIsActive: editProdIsActive
             }
-        )
-        .then(() => {window.location.href = "/productManage"})
-        .catch((err)=> console.log(err))
+        ).then(() => {
+            window.location.href = "/productManage"
+        }).catch((err) => console.log(err))
     }
 
     useEffect(() => {
-        dispatch.Category.fetchCategory()
         dispatch.Product.fetchproductdetail({ ProdId: ProdId })
+        dispatch.Category.fetchCategory({ urlpath: urlpath.pathname })
     }, [])
 
     return (
@@ -51,7 +52,7 @@ function EditProductDetail() {
                 <div className="ProductDetailDiv">
                     <div className="ProductInfo">
                         <div className="ProductTitle">
-                            <p>ชื่อสินค้า</p>
+                            <p>รหัสสินค้า</p>
                         </div>
                         <div className="ProductData">
                             <input value={editProdId} disabled onChange={(event) => { dispatch.Product.editProdId({ editProdId: event.target.value }) }} />
@@ -67,7 +68,7 @@ function EditProductDetail() {
                     </div>
                     <div className="ProductInfo">
                         <div className="ProductTitle">
-                            <p>ชื่อสินค้า</p>
+                            <p>คำอธิบายสินค้า</p>
                         </div>
                         <div className="ProductData">
                             <input value={editProdDesc} onChange={(event) => { dispatch.Product.editProdDesc({ editProdDesc: event.target.value }) }} />
@@ -75,7 +76,7 @@ function EditProductDetail() {
                     </div>
                     <div className="ProductInfo">
                         <div className="ProductTitle">
-                            <p>ชื่อสินค้า</p>
+                            <p>ราคาสินค้าต่อชิ้น</p>
                         </div>
                         <div className="ProductData">
                             <input value={editProdPrice} onChange={(event) => { dispatch.Product.editProdPrice({ editProdPrice: event.target.value }) }} />
@@ -83,7 +84,7 @@ function EditProductDetail() {
                     </div>
                     <div className="ProductInfo">
                         <div className="ProductTitle">
-                            <p>ชื่อสินค้า</p>
+                            <p>รหัสบาร์โค้ต</p>
                         </div>
                         <div className="ProductData">
                             <input value={editProdBarcode} onChange={(event) => { dispatch.Product.editProdBarcode({ editProdBarcode: event.target.value }) }} />
@@ -91,21 +92,15 @@ function EditProductDetail() {
                     </div>
                     <div className="ProductInfo">
                         <div className="ProductTitle">
-                            <p>ชื่อสินค้า</p>
+                            <p>หมวดหมู่ของสินค้า</p>
                         </div>
                         <div className="ProductData">
-                            <select onChange={(event) => { dispatch.Product.editProdCateId({ editProdCateId: event.target.value }) }}>
+                            <select value={editProdCateId} onChange={(event) => { dispatch.Product.editProdCateId({ editProdCateId: event.target.value }) }}>
                                 {
-                                    Category.map((Cate, index) => {
-                                        if (editProdCateId === Cate.CateId) {
-                                            return (
-                                                <option key={index} value={Cate.CateId} selected>{Cate.CateName}</option>
-                                            )
-                                        } else {
-                                            return (
-                                                <option key={index} value={Cate.CateId}>{Cate.CateName}</option>
-                                            )
-                                        }
+                                    Category.map((cate, index) => {
+                                        return (
+                                            <option key={index} value={cate.CateId}>{cate.CateName}</option>
+                                        )
                                     })
                                 }
                             </select>
@@ -113,23 +108,12 @@ function EditProductDetail() {
                     </div>
                     <div className="ProductInfo">
                         <div className="ProductTitle">
-                            <p>ชื่อสินค้า</p>
+                            <p>การใช้งาน</p>
                         </div>
                         <div className="ProductData">
-                            <select onChange={(event) => { dispatch.Product.editProdIsActive({ editIsActive: event.target.value }) }}>
-                                {
-                                    editProdIsActive ? (
-                                        <>
-                                            <option value="true" selected>ใช้งาน</option>
-                                            <option value="false">ไม่ใช่งาน</option>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <option value="true">ใช้งาน</option>
-                                            <option value="false" selected>ไม่ใช่งาน</option>
-                                        </>
-                                    )
-                                }
+                            <select value={editProdIsActive} onChange={(event) => { dispatch.Product.editProdIsActive({ editIsActive: event.target.value }) }}>
+                                <option value="true">ใช้งาน</option>
+                                <option value="false">ไม่ใช่งาน</option>
                             </select>
                         </div>
                     </div>

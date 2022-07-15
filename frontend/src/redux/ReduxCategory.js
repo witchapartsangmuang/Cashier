@@ -3,10 +3,10 @@ import axios from 'axios'
 const DEFAULT_STATE = {
     Category: [],
     // START CategoryDetail
-    CateId:[],
-    CateName:[],
-    CateImg:[],
-    CateIsActive:[]
+    CateId: [],
+    CateName: [],
+    CateImg: [],
+    CateIsActive: []
     // END CategoryDetail
 }
 
@@ -31,13 +31,19 @@ export const Category = {
     },
     effects: (dispatch) => ({
         async fetchCategory(payload) {
-            axios.get(`http://localhost:8080/GetCategory`)
-                .then((response) => {
-                    dispatch.Category.SET_CATEGORY(response.data)
-                })
-                .catch((err) => {
-                    console.log(err)
-                })
+            axios.get(`http://localhost:8080/GetCategory`
+            , {
+                params: {
+                    // cateId: payload.cateId,
+                    urlpath: payload.urlpath,
+                    // activefilter: payload.activefilter
+                }
+            }
+            ).then((response) => {
+                dispatch.Category.SET_CATEGORY(response.data)
+            }).catch((err) => {
+                console.log(err)
+            })
         },
         async fetchcategorydetail(payload) {
             axios.get(`http://localhost:8080/GetCategoryDetail`, {

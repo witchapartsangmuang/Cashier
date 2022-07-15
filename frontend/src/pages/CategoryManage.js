@@ -16,12 +16,9 @@ function CategoryManage() {
     return (
         <div className="Page">
             <Header />
-            <div style={{display:"flex"}}>
-                <div style={{width:"50%"}}>
-
-                </div>
-                <div style={{width:"50%"}}>
-                    <button style={{width:"50px"}} onClick={newCategory}>+</button>
+            <div style={{display:"flex",width:"100%",height:"40px",justifyContent:"right",alignItems:"center"}}>
+                <div style={{width:"70px",textAlign:"center"}}>
+                    <button style={{width:"50px",height:"30px"}} onClick={newCategory}>+</button>
                 </div>
             </div>
             <CategoryTable />

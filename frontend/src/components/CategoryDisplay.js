@@ -9,6 +9,7 @@ import {
 } from "react-redux"
 
 function CategoryDisplay() {
+
     const urlpath = useLocation()
 
     const dispatch = useDispatch()
@@ -23,7 +24,9 @@ function CategoryDisplay() {
     }
 
     useEffect(() => {
-        dispatch.Category.fetchCategory()
+        dispatch.Category.fetchCategory({
+            urlpath:urlpath.pathname
+        })
     }, [])
     
     return (

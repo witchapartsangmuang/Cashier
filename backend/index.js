@@ -48,7 +48,7 @@ app.get(`/GetProduct/`, (req, res) => {
         else if (req.query.activefilter != "-" && req.query.cateId == "0") {
             client.query(`SELECT * from "Product" INNER JOIN "Category" ON "Product"."CateId" = "Category"."CateId" WHERE "Product"."ProdIsActive" = '${req.query.activefilter}'`, (err, result) => {
                 if (err) {
-                    console.log(err,"2")
+                    console.log(err)
                 } else {
                     res.send(result.rows)
                     console.log("GetProduct")
@@ -58,7 +58,7 @@ app.get(`/GetProduct/`, (req, res) => {
         else if (req.query.activefilter == "-" && req.query.cateId != "0") {
             client.query(`SELECT * from "Product" INNER JOIN "Category" ON "Product"."CateId" = "Category"."CateId" WHERE "Product"."CateId" = ${req.query.cateId}`, (err, result) => {
                 if (err) {
-                    console.log(err,"3")
+                    console.log(err)
                 } else {
                     res.send(result.rows)
                     console.log("GetProduct")
@@ -68,7 +68,7 @@ app.get(`/GetProduct/`, (req, res) => {
         else {
             client.query(`SELECT * from "Product" INNER JOIN "Category" ON "Product"."CateId" = "Category"."CateId"`, (err, result) => {
                 if (err) {
-                    console.log(err,"4")
+                    console.log(err)
                 } else {
                     res.send(result.rows)
                     console.log("GetProduct")
@@ -104,7 +104,6 @@ app.post(`/AddToCart/`, (req, res) => {
                 })
             }
             else {
-                console.log('result have already in cart')
                 client.query(`UPDATE "Cart" SET "Quantity" = "Quantity" + 1  WHERE "ProdBarcode" = '${req.body.ProdBarcode}' `, (err, result) => {
                     if (err) {
                         console.log(err)
@@ -128,18 +127,31 @@ app.delete(`/DeleteFromCart/:ProdBarcode`, (req, res) => {
     })
 })
 
-app.get(`/GetCategory/`,(req,res) =>{
-    client.query(`SELECT * FROM "Category"`, (err, result) => {
-        if (err) {
-            console.log(err)
-        } else {
-            res.send(result.rows)
-            console.log("GetCategory")
-        }
-    })
+app.get(`/GetCategory/`, (req, res) => {
+    if (req.query.urlpath == "/") {
+        client.query(`SELECT * FROM "Category" WHERE "CateIsActive" = true`, (err, result) => {
+            if (err) {
+                console.log(err)
+            } else {
+                res.send(result.rows)
+                console.log("GetCategory")
+            }
+        })
+    }
+    // else if (req.query.urlpath == "/categoryManage") {
+        else {
+        client.query(`SELECT * FROM "Category" ORDER BY "CateIsActive" DESC`, (err, result) => {
+            if (err) {
+                console.log(err)
+            } else {
+                res.send(result.rows)
+                console.log("GetCategory")
+            }
+        })
+    }
 })
 
-app.get(`/GetCategoryDetail/`,(req,res) =>{
+app.get(`/GetCategoryDetail/`, (req, res) => {
     client.query(`SELECT * FROM "Category" WHERE "CateId" = ${req.query.CateId}`, (err, result) => {
         if (err) {
             console.log(err)
@@ -151,7 +163,7 @@ app.get(`/GetCategoryDetail/`,(req,res) =>{
 })
 
 
-app.get(`/GetProductDetail/`,(req,res) =>{
+app.get(`/GetProductDetail/`, (req, res) => {
     client.query(`SELECT * FROM "Product" INNER JOIN "Category" ON "Product"."CateId" = "Category"."CateId" WHERE "Product"."ProdId" = '${req.query.ProdId}'`, (err, result) => {
         if (err) {
             console.log(err)
@@ -162,7 +174,7 @@ app.get(`/GetProductDetail/`,(req,res) =>{
     })
 })
 
-app.put(`/UpdateCategoryDetail/`,(req,res) =>{
+app.put(`/UpdateCategoryDetail/`, (req, res) => {
     client.query(`UPDATE "Category" SET
     "CateName" = '${req.body.editCateName}',
     "CateImg" = '${req.body.editCateImg}',
@@ -177,7 +189,7 @@ app.put(`/UpdateCategoryDetail/`,(req,res) =>{
     })
 })
 
-app.put(`/UpdateProductDetail/`,(req,res) =>{
+app.put(`/UpdateProductDetail/`, (req, res) => {
     client.query(`UPDATE "Product" SET
     "ProdName" = '${req.body.editProdName}',
     "ProdDesc" = '${req.body.editProdDesc}',
@@ -197,7 +209,7 @@ app.put(`/UpdateProductDetail/`,(req,res) =>{
 
 app.post(`/CreateProduct/`, (req, res) => {
     // 
-    client.query(`INSERT INTO "Product" ("ProdName","ProdDesc","ProdPrice","ProdBarcode","CateId","IsActive") VALUES ('${req.body.ProdName}', '${req.body.ProdDesc}', ${req.body.ProdPrice}, '${req.body.ProdBarcode}', ${req.body.ProdCateId}, 'active')`,(err, result) => {
+    client.query(`INSERT INTO "Product" ("ProdName","ProdDesc","ProdPrice","ProdBarcode","CateId","ProdIsActive") VALUES ('${req.body.ProdName}', '${req.body.ProdDesc}', ${req.body.ProdPrice}, '${req.body.ProdBarcode}', ${req.body.ProdCateId}, true)`, (err, result) => {
         if (err) {
             console.log(err)
         } else {
